@@ -34,7 +34,16 @@
 			</ul>
 		</div>
 		</div>
+		<div class="mui-content-padded">
+				<button id='ok' class="mui-btn mui-btn-block mui-btn-primary" href="set-password.html">OK</button>
+		</div>
 		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			var list = document.querySelector('.mui-table-view.mui-table-view-radio');
+			list.addEventListener('selected',function(e){
+				console.log("当前选中的为："+e.detail.el.innerText);
+			});
+		</script>
 	</body>
 
 </html>
