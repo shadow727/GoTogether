@@ -55,31 +55,38 @@
 					});
 				})
 	
-	
-	
 	doc.getElementById("next").addEventListener("tap", function(){
+				
 		var na = doc.getElementById("name").value;
 		var gen = doc.getElementById("gen").value;
 		var addr = doc.getElementById("addr").value;
 		var ph = doc.getElementById("phone").value;
 		var ema = doc.getElementById("email").value;
-		if(na == null || gen == null || addr == null || ph == null || ema == null)
-			plus.nativeUI.toast("Finish all information, please!");
-		if(sessionStorage.getItem("birthday") == null || sessionStorage.getItem("language") == null)
-			plus.nativeUI.toast("Finish all information, please!");
-		var acc = {
-			name: na,
-			gender: gen,
-			birthday: sessionStorage.getItem("birthday"),
-			address: addr,
-			phone: ph,
-			email: ema,
-			language: JSON.parse(sessionStorage.getItem("language"))
-		};
+//		if(na == null || gen == null || addr == null || ph == null || ema == null || sessionStorage.getItem("birthday") == null || sessionStorage.getItem("language") == null)
+//			plus.nativeUI.toast("Finish all information, please!");
+//		else
+		{
+			var acc = {
+				name: na,
+				gender: gen,
+				birthday: sessionStorage.getItem("birthday"),
+				address: addr,
+				phone: ph,
+				email: ema,
+				language: JSON.parse(sessionStorage.getItem("language"))
+			};
+			sessionStorage.removeItem("birthday");
+			sessionStorage.removeItem("language");
+			$.preload({
+				url: 'set-password.html',
+				id: 'set-password.html'
+			});
+			var newpage = plus.webview.getWebviewById('set-password.html');
+			$.fire(newpage, 'send',{
+				id: JSON.stringify(acc)
+			});
+			$.openWindow('set-password.html');
+		}
 		
-		sessionStorage.setItem("account", JSON.stringify(acc));
-		sessionStorage.removeItem("birthday");
-		sessionStorage.removeItem("language");
-		$.openWindow("set-password.html");
 	});
 }(mui, document));
